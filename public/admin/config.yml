@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: vivianabautistaxyz/constelaciones
+  branch: main
+  base_url: https://TU-PROYECTO.vercel.app
+
+publish_mode: simple
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: posts
+    label: Posts
+    folder: src/content/posts
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Fecha, name: date, widget: datetime, format: 'YYYY-MM-DD' }
+      - { label: Descripción, name: description, widget: string, required: false }
+      - { label: Borrador, name: draft, widget: boolean, default: false }
+      - { label: Contenido, name: body, widget: markdown }

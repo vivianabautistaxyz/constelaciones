@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Constelaciones">
+  <h1>Constelaciones</h1>
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`${import.meta.env.BASE_URL}/posts/${post.id}`}>
+            <span class="post-title">{post.data.title}</span>
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('es', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 2em 0;
+  }
+
+  .post-list li + li {
+    margin-top: 0.25em;
+  }
+
+  .post-list a {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    padding: 8px 4px;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .post-list a:hover {
+    background: #f7f6f3;
+  }
+
+  .post-title {
+    font-weight: 500;
+  }
+
+  time {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+</style>
