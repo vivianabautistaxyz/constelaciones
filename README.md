@@ -1,43 +1,55 @@
-# Astro Starter Kit: Minimal
+# Constelaciones
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Blog estático con [Astro](https://astro.build), editable desde un panel visual
+([Decap CMS](https://decapcms.org)) o directamente en Markdown, publicado en
+GitHub Pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Sitio**: https://vivianabautistaxyz.github.io/constelaciones/
+- **Editor**: https://vivianabautistaxyz.github.io/constelaciones/admin/
 
-## 🚀 Project Structure
+Ver [ARCHITECTURE.md](./ARCHITECTURE.md) para el por qué de las decisiones de diseño.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
 ```text
 /
 ├── public/
+│   └── admin/             # Decap CMS (panel de edición en /admin)
 ├── src/
+│   ├── content/posts/     # Posts en Markdown (fuente de verdad)
+│   ├── layouts/
 │   └── pages/
-│       └── index.astro
-└── package.json
+├── content.config.ts      # Schema de la colección "posts"
+└── .github/workflows/     # Deploy automático a GitHub Pages
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Escribir un post
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Desde el panel**: entra a `/admin`, inicia sesión con GitHub, "New Post".
+- **A mano**: crea un `.md` en `src/content/posts/` con este frontmatter:
 
-Any static assets, like images, can be placed in the `public/` directory.
+  ```yaml
+  ---
+  title: Mi post
+  date: 2026-01-01
+  description: Opcional
+  draft: false
+  ---
+  ```
 
-## 🧞 Commands
+Cualquiera de los dos métodos termina en un commit a `main`, que dispara el
+deploy automático (ver abajo).
 
-All commands are run from the root of the project, from a terminal:
+## Comandos locales
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Comando           | Acción                                      |
+| :----------------- | :------------------------------------------ |
+| `npm install`       | Instala dependencias                        |
+| `npm run dev`       | Server local en `localhost:4321`            |
+| `npm run build`     | Build de producción a `./dist/`             |
+| `npm run preview`   | Previsualiza el build localmente            |
 
-## 👀 Want to learn more?
+## Deploy
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Cada push a `main` dispara `.github/workflows/deploy.yml`, que hace build y
+publica a GitHub Pages. No requiere pasos manuales.
