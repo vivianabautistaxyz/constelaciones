@@ -2,7 +2,7 @@ backend:
   name: github
   repo: vivianabautistaxyz/constelaciones
   branch: main
-  base_url: https://TU-PROYECTO.vercel.app
+  base_url: https://decap-oauth-provider-vivianas-projects-f315cb75.vercel.app
 
 publish_mode: simple
 media_folder: public/images
